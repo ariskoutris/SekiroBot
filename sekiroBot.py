@@ -123,27 +123,37 @@ def farm_route_instructions_ashina_castle():
     sekiro.walk_forward_hold_stop()
     sekiro.interact_hold(4)
 
-def print_farm_report(run_count):
-    # Change these variables to match the xp/money given for a kill.
-    # My numbers are based on NG4
-    money_from_kill = 256
-    exp_from_kill = 3156
-    # This is only useful if you write a new route, it will always be 2 for this bot.
-    enemies_per_run = 1
-    kill_count = run_count * enemies_per_run
-    money_earned = run_count * money_from_kill * enemies_per_run
-    experience_earned = run_count * exp_from_kill * enemies_per_run
-    print("---------- Farm Bot Report ----------")
-    print(f"  Run {run_count} completed.")
-    print(f"  {kill_count} kills.")
-    print(f"  {money_earned} money earned.")
-    print(f"  {experience_earned} experience points earned.\n")
+def print_farm_report(run_count, elalpsed_time, final=False):
+    money_per_rounnd = 256
+    exp_per_round = 3156
+    money_earned = run_count * money_per_rounnd
+    experience_earned = run_count * exp_per_round
+    if final:
+        filler = 200*' '
+        print(filler)
+        print("---------- Farm Bot Report ----------")
+        print(f" Runs Completed:\t{run_count}")
+        print(f" Total XP Earned:\t{experience_earned}")
+        print(f" Total Sen Earned:\t{money_earned}")
+        print(f" Elapsed Time:\t\t{int(elalpsed_time/60)} minutes")
+        print(f" XP Rate:\t\t{int(3600*experience_earned/elalpsed_time)} XP/hour")
+        print(f" Sen Rate:\t\t{int(3600*money_earned/elalpsed_time)} sen/hour")
+        print("-------------------------------------")
+    else:
+        print(f'Run {run_count} | XP Total: {experience_earned} | Sen Total: {money_earned} | {int(3600*experience_earned/elalpsed_time)} XP/hour | {int(3600*money_earned/elalpsed_time)} sen/hour', end='\r')
+
 
 if __name__ == "__main__":
-    bot_start_timer(10)
-    counter = 0
+    bot_start_timer(5)
+    start_time = time.perf_counter()
+    run_counter = 0
     while True:
-        counter += 1
-        print(f"\nBeginning run {counter}.")
-        farm_route_instructions_ashina_castle()
-        print_farm_report(counter)
+        try:
+            farm_route_instructions_ashina_castle()
+            elapsed_time = time.perf_counter() - start_time
+            run_counter += 1
+            print_farm_report(run_counter, elapsed_time)
+        except KeyboardInterrupt:
+            elapsed_time = time.perf_counter() - start_time
+            print_farm_report(run_counter, elapsed_time, final=True)
+            exit()
