@@ -18,14 +18,14 @@ def use_idol():
     ### If your computer loads faster or slower, you may need to change this setting.
     # Use a stopwatch to time using the idol - stop when game is fully loaded.
     # add about 3 seconds as it's a good time to alt tab and stop the script
-    wait_time = 18
+    wait_time = 16
     print(" -- Using Idol.")
     sekiro.item_use()
     sekiro.menu_down()
     sekiro.menu_select()
     print(f" -- Waiting {wait_time} seconds for Loading Screen.")
     time.sleep(wait_time)
-
+    
 def bulwark_line_up():
     print(" -- Lining up with bulwark.")
     sekiro.camera_left(130)
@@ -88,8 +88,9 @@ def second_enemy_approach():
     sekiro.walk_slow_start()
     sekiro.walk_forward(.8)
     sekiro.walk_slow_stop()
-
-def farm_route_instructions():
+   
+# farming location: "Ashina Outskirts - Outskirts Wall - Stairway" 
+def farm_route_instructions_ashina_outskirts():
     use_idol()
     bulwark_line_up()
     bulwark_jump()
@@ -102,13 +103,33 @@ def farm_route_instructions():
     second_enemy_approach()
     kill_and_collect()
 
+# farming location: "Ashina Castle - Upper Tower - Antechamber"
+def farm_route_instructions_ashina_castle():
+    use_idol()
+    sekiro.walk_backwards(0.01)
+    sekiro.camera_lock()
+    sekiro.walk_forward_hold_start()
+    sekiro.camera_left(40)
+    time.sleep(0.7)
+    sekiro.camera_right(105)
+    time.sleep(0.5)
+    sekiro.camera_left(20)
+    sekiro.walk_slow_start()
+    sekiro.camera_left(70)
+    sekiro.walk_slow_stop()
+    sekiro.camera_left(100)
+    time.sleep(1.25)
+    sekiro.attack()
+    sekiro.walk_forward_hold_stop()
+    sekiro.interact_hold(4)
+
 def print_farm_report(run_count):
     # Change these variables to match the xp/money given for a kill.
     # My numbers are based on NG4
-    money_from_kill = 220
-    exp_from_kill = 1854
+    money_from_kill = 256
+    exp_from_kill = 3156
     # This is only useful if you write a new route, it will always be 2 for this bot.
-    enemies_per_run = 2
+    enemies_per_run = 1
     kill_count = run_count * enemies_per_run
     money_earned = run_count * money_from_kill * enemies_per_run
     experience_earned = run_count * exp_from_kill * enemies_per_run
@@ -124,5 +145,5 @@ if __name__ == "__main__":
     while True:
         counter += 1
         print(f"\nBeginning run {counter}.")
-        farm_route_instructions()
+        farm_route_instructions_ashina_castle()
         print_farm_report(counter)
