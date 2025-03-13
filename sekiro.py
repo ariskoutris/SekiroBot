@@ -78,10 +78,10 @@ def item_use():
 
 # camera controls
 def _camera_horizontal_seconds_for_degree(angle):
-    # 90 degrees is almost exactly .4 seconds.
+    # 90 degrees is approximately .42717 seconds.
     # This is not perfectly accurate! 
-    # It worked well enough for me that I didn't have to tune this.
-    return (angle / 90) * .4
+    # Good enough for my purposes.
+    return (angle / 90) * .42717
 
 def camera_lock():
     pydirectinput.press(key_map["camera reset/lock on"])
