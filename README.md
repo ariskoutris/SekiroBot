@@ -47,16 +47,13 @@ Click the image below to see the bot in action:
         - Automatic Rendering Adjustment: Off
 
 # Use
-- After killing the divine dragon, go to the "Ashina Outskirts - Outskirts Wall - Stairway" idol and rest at it.
+- After killing the divine dragon, go to the "Ashina Castle - Upper Tower - Antechamber" idol and rest at it.
 - Equip the "Homeward Idol" on your item action bar and scroll to it so it is selected.
     - Time how long it takes for your game to load after using the idol in this location.
     - If it takes longer than 15 seconds, change the "wait_time" variable in sekiroBot.py's "use_idol()" function.
 - Pause the game and run the "sekiroBot.py" program.
     - You will see output in your terminal that the program has started and a 10 second countdown has begun.
 - Go back to Sekiro and unpause the game.
-- Review how much experience and gold you are receiving from a single kill and edit the following variables within sekiroBot.py's "print_farm_report()" function:
-    - "money_from_kill"
-    - "exp_from_kill"
-
-# Future Plans
-- This was just a simple project to farm for a few hours. It has already served its purpose. I have no plans to make this into a full bot or to write a proper interface.
+- Review how much experience and gold you are receiving in each iteration and edit the following variables within sekiroBot.py's "print_farm_report()" function:
+    - "money_per_rounnd"
+    - "exp_per_round"
